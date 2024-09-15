@@ -12,7 +12,7 @@ type DB interface {
 	Delete(m any) error
 	First(dst any) error
 	Find(dst any) error
-	Count(m Model, dst int64) error
+	Count(m Model, dst *int64) error
 	Raw(sql string, values ...any) error
 	Exec(sql string, values ...any) error
 	Where(query any, args ...any) DB
@@ -52,8 +52,8 @@ func (d *db) Find(dst any) error {
 	return d.conn.Find(&dst).Error
 }
 
-func (d *db) Count(m Model, dst int64) error {
-	return d.conn.Model(m).Count(&dst).Error
+func (d *db) Count(m Model, dst *int64) error {
+	return d.conn.Model(m).Count(dst).Error
 }
 
 func (d *db) Raw(sql string, values ...any) error {
