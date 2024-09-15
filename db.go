@@ -52,8 +52,8 @@ func (d *db) Find(dst any) error {
 	return d.conn.Find(&dst).Error
 }
 
-func (d *db) Count(dst int64) error {
-	return d.conn.Count(&dst).Error
+func (d *db) Count(m Model, dst int64) error {
+	return d.conn.Model(m).Count(&dst).Error
 }
 
 func (d *db) Raw(sql string, values ...any) error {
